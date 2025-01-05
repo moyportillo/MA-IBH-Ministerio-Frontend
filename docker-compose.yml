@@ -1,0 +1,20 @@
+services:
+  json-server:
+    container_name: json-server
+    build:
+      context: ./fake-api/
+      target: json-server
+    ports:
+      - "3000:3000"
+
+  ma-ibh-ministerio-backoffice:
+    depends_on:
+      - json-server
+    container_name: ma-ibh-ministerio-backoffice
+    build:
+      context: .
+      target: prod
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=development
